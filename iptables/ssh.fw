@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if test $1 == 'reload'; then
+
+    iptables -F SSH-INPUT
+    iptables -X SSH-INPUT
+
+    ip6tables -F SSH-INPUT
+    ip6tables -X SSH-INPUT
+
+fi
+
+iptables -N SSH-INPUT
+iptables -A SSH-INPUT -p tcp --dport 54345 -m limit --limit 10/m --limit-burst 50 -j ACCEPT
+iptables -A MAIN-INPUT -j SSH-INPUT
+
+ip6tables -N SSH-INPUT
+ip6tables -A SSH-INPUT -p tcp --dport 54345 -m limit --limit 10/m --limit-burst 50 -j ACCEPT
+ip6tables -A MAIN-INPUT -j SSH-INPUT

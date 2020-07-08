@@ -1,0 +1,9 @@
+[Unit]
+Description=Update Tiny Tiny RSS
+
+[Timer]
+OnCalendar=12:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

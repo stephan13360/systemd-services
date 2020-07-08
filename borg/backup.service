@@ -1,0 +1,33 @@
+[Unit]
+Description=Borg Backup
+
+[Service]
+Type=oneshot
+User=borg
+Group=borg
+SupplementaryGroups=postdrop
+ExecStart=/usr/local/sbin/backup.sh
+ExecStartPost=!/bin/find /backup/ ! -path /backup/ -delete
+
+# filesystem access
+ProtectSystem=strict
+PrivateTmp=true
+PrivateDevices=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ReadWritePaths=/backup /home/borg/.cache/borg /home/borg/.config/borg /backup.last /var/spool/postfix/maildrop
+
+# network
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+
+# misc
+NoNewPrivileges=true
+RestrictRealtime=true
+MemoryDenyWriteExecute=true
+LockPersonality=true
+RemoveIPC=true
+
+# capabilities
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+AmbientCapabilities=CAP_DAC_READ_SEARCH

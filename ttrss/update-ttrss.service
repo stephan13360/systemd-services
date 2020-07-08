@@ -1,0 +1,36 @@
+[Unit]
+Description=Update Tiny Tiny RSS
+
+[Service]
+Type=oneshot
+User=ttrss
+Group=ttrss
+WorkingDirectory=/srv/ttrss/public/
+
+ExecStartPre=!/bin/systemctl stop ttrss
+ExecStart=/usr/bin/git pull origin master
+ExecStartPost=!/bin/systemctl start ttrss
+
+# filesystem access
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ReadWritePaths=/srv/ttrss/public/
+
+# network
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+# misc
+NoNewPrivileges=true
+PrivateUsers=true
+RestrictRealtime=true
+MemoryDenyWriteExecute=true
+ProtectKernelLogs=true
+LockPersonality=true
+ProtectHostname=true
+RemoveIPC=true
+RestrictSUIDSGID=true

@@ -1,0 +1,8 @@
+[Unit]
+Description=Reload firewall rules when changed
+
+[Path]
+PathChanged=/usr/local/etc/firewall/
+
+[Install]
+WantedBy=multi-user.target

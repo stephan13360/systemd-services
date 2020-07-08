@@ -1,0 +1,28 @@
+[Unit]
+Description=Backup PostgreSQL
+
+[Service]
+Type=oneshot
+User=postgres
+Group=postgres
+SupplementaryGroups=borg
+ExecStart=/usr/local/sbin/backup-postgresql.sh
+
+# filesystem access
+ProtectSystem=strict
+PrivateTmp=true
+PrivateDevices=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ReadWritePaths=/backup
+
+# network
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+
+# misc
+NoNewPrivileges=true
+RestrictRealtime=true
+MemoryDenyWriteExecute=true
+LockPersonality=true
+RemoveIPC=true

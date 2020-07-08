@@ -1,0 +1,29 @@
+[Unit]
+Description=Reload Firewall
+
+[Service]
+Type=oneshot
+ExecStart=/bin/systemctl reload firewall.service
+
+# filesystem access
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+
+# network
+PrivateNetwork=true
+
+# misc
+NoNewPrivileges=true
+PrivateUsers=true
+RestrictRealtime=true
+MemoryDenyWriteExecute=true
+ProtectKernelLogs=true
+LockPersonality=true
+ProtectHostname=true
+RemoveIPC=true
+RestrictSUIDSGID=true

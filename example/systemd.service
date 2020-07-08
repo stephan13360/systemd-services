@@ -1,0 +1,51 @@
+[Unit]
+Description=service
+After=network.target
+
+[Service]
+Type=exec
+DynamicUser=true
+User=
+Group=
+WorkingDirectory=
+EnvironmentFile=
+
+ExecStartPre=
+ExecStart=
+ExecStartPost=
+
+Restart=on-failure
+RestartSec=10s
+
+# filesystem access
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ReadWritePaths=
+
+# network
+PrivateNetwork=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+# misc
+NoNewPrivileges=true
+PrivateUsers=true
+RestrictRealtime=true
+MemoryDenyWriteExecute=true
+ProtectKernelLogs=true
+LockPersonality=true
+ProtectHostname=true
+RemoveIPC=true
+RestrictSUIDSGID=true
+ProtectClock=true
+
+# capabilities
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+[Install]
+WantedBy=multi-user.target

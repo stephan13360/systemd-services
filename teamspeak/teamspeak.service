@@ -1,0 +1,39 @@
+[Unit]
+Description=Teamspeak 3 Server
+After=network.target
+
+[Service]
+Type=exec
+User=teamspeak
+Group=teamspeak
+Environment=TS3SERVER_LICENSE=accept
+WorkingDirectory=/srv/teamspeak/teamspeak3-server_linux_amd64/
+ExecStart=/srv/teamspeak/teamspeak3-server_linux_amd64/ts3server
+Restart=on-failure
+
+# filesystem access
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ReadWritePaths=/srv/teamspeak/teamspeak3-server_linux_amd64/
+
+# network
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+# misc
+NoNewPrivileges=true
+PrivateUsers=true
+RestrictRealtime=true
+MemoryDenyWriteExecute=true
+ProtectKernelLogs=true
+LockPersonality=true
+ProtectHostname=true
+RemoveIPC=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target

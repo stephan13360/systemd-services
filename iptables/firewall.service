@@ -1,0 +1,38 @@
+[Unit]
+Description=Firewall
+Wants=network.target
+After=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+ExecStart=/usr/local/sbin/firewall.sh on
+ExecReload=/usr/local/sbin/firewall.sh reload
+ExecStop=/usr/local/sbin/firewall.sh off
+
+# filesystem access
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectControlGroups=true
+ProtectKernelTunables=true
+ReadWritePaths=/run/
+
+# misc
+NoNewPrivileges=true
+RestrictRealtime=true
+MemoryDenyWriteExecute=true
+ProtectKernelLogs=true
+LockPersonality=true
+ProtectHostname=true
+RemoveIPC=true
+RestrictSUIDSGID=true
+
+# capabilities
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_RAW CAP_SYS_MODULE
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_RAW CAP_SYS_MODULE
+
+[Install]
+WantedBy=multi-user.target

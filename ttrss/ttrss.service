@@ -1,0 +1,42 @@
+[Unit]
+Description=TinyTiny RSS Feed Updates
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=exec
+User=ttrss
+Group=ttrss
+WorkingDirectory=/srv/ttrss/public/
+
+ExecStart=/srv/ttrss/public/update_daemon2.php --quiet
+
+Restart=always
+RestartSec=10s
+
+# filesystem access
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ReadWritePaths=/srv/ttrss/public/
+
+# network
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+# misc
+NoNewPrivileges=true
+PrivateUsers=true
+RestrictRealtime=true
+#MemoryDenyWriteExecute=true
+ProtectKernelLogs=true
+LockPersonality=true
+ProtectHostname=true
+RemoveIPC=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target
