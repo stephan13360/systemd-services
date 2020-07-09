@@ -28,6 +28,7 @@ ReadWritePaths=/srv/ttrss/public/
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 
 # misc
+SystemCallArchitectures=native
 NoNewPrivileges=true
 PrivateUsers=true
 RestrictRealtime=true
