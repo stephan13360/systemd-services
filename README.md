@@ -98,7 +98,7 @@ This options prevents the service from ever getting more privileges than it had 
 
 #### SystemCallArchitectures=native
 
-This options restricts the service to only be able to call native system calls. Most systems nowadays are x86-64 (64 bit) and this options disables all systems calls for other architectures like x86 (32 bit). Being able ti user older system calls like those for 32 bit systems allows the circumvention of some of the here listed sandbox features.
+This options restricts the service to only be able to call native system calls. Most systems nowadays are x86-64 (64 bit) and this options disables all systems calls for other architectures like x86 (32 bit). Being able to use older system calls like those for 32 bit systems allows the circumvention of some of the here listed sandbox features.
 
 You can also set this as a global option for all services running on the system. To do that, add SystemCallArchitectures=native to /etc/systemd/system.conf. That's what I'm doing and would recommend for everyone, but I included the option in the service files here for people who only copy and paste without reading the README.
 
@@ -108,7 +108,7 @@ Prevent the service from creating memory mappings that are writable and executab
 
 #### RestrictSUIDSGID=true
 
-Prevents the service from settung the SUID or SGID bits on files and folders. SUID and SGID can be used to elevate privileges and most programms don't need to set them.
+Prevents the service from setting the SUID or SGID bits on files and folders. SUID and SGID can be used to elevate privileges and most programms don't need to set them.
 
 #### RestrictRealtime=true
 
@@ -116,7 +116,7 @@ Prevent the service to enable realtime scheduling. This can be used clog up CPU 
 
 #### LockPersonality=true
 
- If set, locks down the personality(2) system call so that the kernel execution domain may not be changed from the default or the personality selected with Personality= directive. I copied the explanation directly from the systemd documentaion, because this is the option I understand the least. It can improve security and sometimes breaks the service. I just turn it on and see if everything is still working.
+ If set, locks down the personality system call so that the kernel execution domain may not be changed from the default or the personality selected with Personality= directive. I copied the explanation directly from the systemd documentaion, because this is the option I understand the least. It can improve security and sometimes breaks the service. I just turn it on and see if everything is still working.
 
 ### miscellaneous
 
