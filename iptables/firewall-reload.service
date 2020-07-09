@@ -18,6 +18,7 @@ ProtectKernelTunables=true
 PrivateNetwork=true
 
 # misc
+SystemCallArchitectures=native
 NoNewPrivileges=true
 PrivateUsers=true
 RestrictRealtime=true

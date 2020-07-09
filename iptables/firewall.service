@@ -21,6 +21,7 @@ ProtectKernelTunables=true
 ReadWritePaths=/run/
 
 # misc
+SystemCallArchitectures=native
 NoNewPrivileges=true
 RestrictRealtime=true
 MemoryDenyWriteExecute=true

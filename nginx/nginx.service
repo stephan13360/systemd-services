@@ -29,6 +29,7 @@ ReadWritePaths=/var/log/nginx/ /var/cache/nginx/
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 
 # misc
+SystemCallArchitectures=native
 NoNewPrivileges=true
 RestrictRealtime=true
 MemoryDenyWriteExecute=true
