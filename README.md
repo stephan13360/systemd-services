@@ -4,7 +4,7 @@ This repository includes systemd services that I wrote because I was not satisfi
 
 ## Disclaimer
 
-I'm a linux administrator for about 6+ years and have been using linux for 15+ years, but I'm no kernel developer and some of the options to sandbox the service I use, I only understad to a degree. This is mostly true for some of the options that remove access to some part of the system, but where the documentation is clear that no service should ever need them.
+I'm a linux administrator for about 6+ years and have been using linux for 15+ years, but I'm no kernel developer and some of the options to sandbox the service I use, I only understand to a degree. This is mostly true for some of the options that remove access to some part of the system, but where the documentation is clear that no service should ever need them.
 
 ## Goals
 
