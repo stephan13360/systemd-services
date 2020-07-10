@@ -20,6 +20,8 @@ This is often used with some archaic bash startup scripts that were last updated
 
 What we want to achieve is to run the binary, that contains the programm, directly with ExecStart=. The Type we want to use is Type=exec (with systemd >= 240) or Type=simple (with systemd < 240). The difference is described [here](https://www.freedesktop.org/software/systemd/man/systemd.service.html#Type=).
 
+Another benefit of running the binary directly is that we can see stdout and stderr inside journald or when we run systemd status. Some services output logs or status messages to stdout which just get lost when using Type=forking.
+
 ### Avoid running as root
 
 For obvious reasons we normally don't want our services to run as root and be able to do everything. Many services don't need any administrative privileges and are happy running as an unprivileged process. These can be achieved with the [User= and Group=](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#User=) options.
