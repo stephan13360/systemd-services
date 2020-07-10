@@ -5,16 +5,14 @@ After=network.target
 [Service]
 Type=exec
 User=minecraft
+Group=minecraft
 WorkingDirectory=/srv/minecraft/
 SyslogIdentifier=minecraft
+EnvironmentFile=/srv/minecraft/environment
 
-Environment=MCRCON_HOST=127.0.0.1
-Environment=MCRCON_PORT=25575
-Environment=MCRCON_PASS={{ minecraft_rcon_pass }}
+ExecStart=/usr/bin/java -Xms2G -Xmx2G -jar /srv/minecraft/server.jar --nogui
 
-ExecStart=/usr/bin/java -Xms{{ minecraft_ram_size }} -Xmx{{ minecraft_ram_size }} -jar /srv/minecraft/server.jar --nogui --eraseCache --forceUpgrade
-
-ExecStop=/srv/minecraft/mcrcon-{{ minecraft_mcrcon_version }}-linux-x86-64/mcrcon "stop"
+ExecStop=/path/to/mcrcon-dir/mcrcon "stop"
 KillMode=none
 
 Restart=on-failure

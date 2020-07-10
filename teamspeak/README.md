@@ -1,4 +1,4 @@
-# Teamspeak service
+# Teamspeak systemd service
 
 Teamspeak is a great example of a service that comes with a bash start script, but no systemd service and where most people online just put the bash script inside ExecStart= like this:
 
