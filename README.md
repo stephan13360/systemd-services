@@ -36,7 +36,7 @@ There are many options which remove some abilities for a service to change thing
 
 #### ProtectSystem=strict
 
-This makes the whole filesystems read-only to the process, even if it would run as root. I combine this with ReadWritePaths= to make some paths of the filesystem writeable again, if the service needs them.
+This makes the whole filesystems read-only to the process, even if it would run as root. I combine this with ReadWritePaths= to make some paths of the filesystem writeable again, if the service needs them. All paths listed inside ReadWritePaths= must exists or the service will refuse to start with a very cryptic error message.
 
 #### ProtectControlGroups=true
 
