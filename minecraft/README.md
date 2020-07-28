@@ -32,4 +32,4 @@ I'm not completly happy with this solution, since it can leave processes hanging
 
 ## sandboxing
 
-The minecraft server can deal with most of the sandboxing feature with the only exception being `MemoryDenyWriteExecute=true`. Since is a limitation of how java works and not the minecraft server itself.
+The minecraft server can deal with most of the sandboxing feature with the only exception being `MemoryDenyWriteExecute=true`. This is a limitation of all java processes and not one of the minecraft server itself.
