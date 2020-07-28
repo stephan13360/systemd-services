@@ -26,7 +26,7 @@ MCRCON_PORT=25575
 MCRCON_PASS=password123
 ```
 
-We now need one additional option to prevent systemd from killing the server bevor the shutdown is finished: `KillMode=none`. Without it, systemd would run the ExecStop= command, wait for it to exit successfully (which it does immediately, since mcrcon only sends a stop and then exits itself) and then kill all remaining processes. When setting KillMode to none it will not stop the server which is still in the Process auf shuting down.
+We now need one additional option to prevent systemd from killing the server bevor the shutdown is finished: `KillMode=none`. Without it, systemd would run the ExecStop= command, wait for it to exit successfully (which it does immediately, since mcrcon only sends a stop and then exits itself) and then kill all remaining processes. When setting KillMode to none it will not stop the server which is still in the Process of shuting down.
 
 I'm not completly happy with this solution, since it can leave processes hanging which systemd will never kill, when the server would crash on shutdown. Currently I do not know a better way. If anyone has one please let me know :-)
 
