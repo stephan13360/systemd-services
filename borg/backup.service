@@ -27,7 +27,10 @@ NoNewPrivileges=true
 RestrictRealtime=true
 MemoryDenyWriteExecute=true
 LockPersonality=true
+ProtectHostname=true
 RemoveIPC=true
+RestrictSUIDSGID=true
+ProtectClock=true
 
 # capabilities
 AmbientCapabilities=CAP_DAC_READ_SEARCH
