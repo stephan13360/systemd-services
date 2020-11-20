@@ -20,7 +20,7 @@ Some of the sandboxing options remove abilities from services that unprivileged 
 
 The forking Type is the [behavior of traditional UNIX services](https://www.freedesktop.org/software/systemd/man/systemd.service.html#Type=), were systemd starts a process which then forks to start the actual binary. Often you need to specify a PIDFile= or systemd will loose track of the correct process.
 
-This is often used with some archaic bash startup scripts that were last updated in 1997. These scripts set a few environment variables, maybe check the existence of a folder or config file and run start-stop-daemon with an incomprehensible list of parameters. All these things can be done directly in the service file in a few lines, instead of hundred of lines of bash.
+This is often used with some archaic bash startup scripts that were last updated in 1997. These scripts set a few environment variables, maybe check the existence of a directory or config file and run start-stop-daemon with an incomprehensible list of parameters. All these things can be done directly in the service file in a few lines, instead of hundred of lines of bash.
 
 What we want to achieve is to run the binary, that contains the programm, directly with ExecStart=. The Type we want to use is Type=exec (with systemd >= 240) or Type=simple (with systemd < 240). The difference is described [here](https://www.freedesktop.org/software/systemd/man/systemd.service.html#Type=), in short Type=exec has one more check that the service is started correctly than Type=simple.
 
@@ -32,7 +32,7 @@ For obvious reasons we normally don't want our services to run as root and be ab
 
 Some services do need some administrative privileges (called [capabilities](https://man7.org/linux/man-pages/man7/capabilities.7.html) in the linux kernel), but we can give them everything they need without them running as root. This is where [AmbientCapabilities=](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#AmbientCapabilities=) comes into play. With this option we can include needed capabilities into the process.
 
-For example with AmbientCapabilities=CAP_DAC_READ_SEARCH we can give a service the permission to read every file and open every folder in the filesystem without beeing able to modify them. Great for backup services like my borg service.
+For example with AmbientCapabilities=CAP_DAC_READ_SEARCH we can give a service the permission to read every file and open every directory in the filesystem without beeing able to modify them. Great for backup services like my borg service.
 
 ### Prevent unintended changes to the system
 
@@ -114,7 +114,7 @@ Prevent the service from creating memory mappings that are writable and executab
 
 #### RestrictSUIDSGID=true
 
-Prevents the service from setting the SUID or SGID bits on files and folders. SUID and SGID can be used to elevate privileges and most programms don't need to set them.
+Prevents the service from setting the SUID or SGID bits on files and directories. SUID and SGID can be used to elevate privileges and most programms don't need to set them.
 
 #### RestrictRealtime=true
 

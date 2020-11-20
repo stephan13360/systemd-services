@@ -18,7 +18,7 @@ On line 44 we see the command that calls the binary: `"./${BINARYNAME}" "${@}" "
 
 `"${@}"` passes all arguments that the script is run with to the binary, `"daemon=1"` runs teamspeak as a deamon with is just another fork we don't need or want and `"pid_file=$PID_FILE"` specifies the PID file we don't need.
 
-So reading the scripts tells us we just need to run the binary ts3server directly and we are done. The scripts also opens the teamspeak folder befor executing, so we will also do this with WorkingDirectory=.
+So reading the scripts tells us we just need to run the binary ts3server directly and we are done. The scripts also opens the teamspeak directory befor executing, so we will also do this with WorkingDirectory=.
 
 When running the Teamspeak server you need to accept a license to continue. You can do this non interactively in different ways, I use the environment variable and add `Environment=TS3SERVER_LICENSE=accept` to the service.
 
