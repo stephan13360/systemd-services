@@ -33,7 +33,6 @@ RestrictSUIDSGID=true
 
 # capabilities
 CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_RAW CAP_SYS_MODULE
-AmbientCapabilities=CAP_NET_ADMIN CAP_NET_RAW CAP_SYS_MODULE
 
 [Install]
 WantedBy=multi-user.target
