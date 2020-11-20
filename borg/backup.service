@@ -30,5 +30,4 @@ LockPersonality=true
 RemoveIPC=true
 
 # capabilities
-CapabilityBoundingSet=CAP_DAC_READ_SEARCH
 AmbientCapabilities=CAP_DAC_READ_SEARCH

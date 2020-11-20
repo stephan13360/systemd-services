@@ -22,6 +22,6 @@ So reading the scripts tells us we just need to run the binary ts3server directl
 
 When running the Teamspeak server you need to accept a license to continue. You can do this non interactively in different ways, I use the environment variable and add `Environment=TS3SERVER_LICENSE=accept` to the service.
 
-I then slap every sandbox feature on it, allow it to write to its own sqlite database with `ReadWritePaths=/srv/teamspeak/teamspeak3-server_linux_amd64/` and it works.
+I then slap every sandbox feature on it, allow it to write to its own sqlite database within `ReadWritePaths=/srv/teamspeak/teamspeak3-server_linux_amd64/` and it works.
 
 By getting rid of Type=forking and the bash start script we don't just get more reliable tracking we can also now see the log output of the binary which it writes to stdout inside journald or when we run systemd status.

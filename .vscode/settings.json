@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "**/*.service": "ini",
+        "**/*.timer": "ini",
+        "**/*.path": "ini",
+    }
+}

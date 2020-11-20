@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if test $1 == 'reload'; then
+if test "$1" == 'reload'; then
 
     iptables -F SSH-INPUT
     iptables -X SSH-INPUT

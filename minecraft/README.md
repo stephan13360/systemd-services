@@ -4,7 +4,7 @@ The minecraft service was a tricky one. At first it looked like I can create a s
 
 ## basics
 
-Running a java programm with systemd is straight forward. Inside ExecStart= run java and then specify your jar file with the -jar argument. Here you can also set the amount of memory the server can use with -Xms and -Xmx (Adjust the amount to your needs). And we also disable the command promt that you could use if you would run the server inside your terminal, since we can't access it anyway when running under systemd. The line then looks like this:
+Running a java programm with systemd is straight forward. Inside ExecStart= run java and then specify your jar file with the -jar argument. Here you can also set the amount of memory the server can use with -Xms and -Xmx (Adjust the amount to your needs). We also disable the command promt that you could use if you would run the server inside your terminal, since we can't access it anyway when running under systemd. The line then looks like this:
 
 `ExecStart=/usr/bin/java -Xms2G -Xmx2G -jar /srv/minecraft/server.jar --nogui`
 
@@ -14,7 +14,7 @@ When running a java process with systemd all logs inside jounald will look like 
 
 ## graceful shutdown
 
-We need a way to gracefully shutdown the server. Fot that the minecraft server can [listen on an additional port](https://minecraft.gamepedia.com/Server.properties) speaking the [RCON](https://developer.valvesoftware.com/wiki/Source_RCON_Protocol) protocol. We can then send a signal over RCON to save the world and stop the server. To send the signal I use [mcrcon](https://github.com/Tiiffi/mcrcon).
+We need a way to gracefully shutdown the server. For that the minecraft server can [listen on an additional port](https://minecraft.gamepedia.com/Server.properties) speaking the [RCON](https://developer.valvesoftware.com/wiki/Source_RCON_Protocol) protocol. We can then send a signal over RCON to save the world and stop the server. To send the signal I use [mcrcon](https://github.com/Tiiffi/mcrcon).
 
 A simple "stop" over RCON is enough to initiate a world save and then shutdown the server gracefully: `ExecStop=/path/to/mcrcon-dir/mcrcon "stop"`
 

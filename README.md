@@ -18,7 +18,7 @@ The forking Type is the [behavior of traditional UNIX services](https://www.free
 
 This is often used with some archaic bash startup scripts that were last updated in 1997. These scripts set a few environment variables, maybe check the existence of a folder or config file and run start-stop-daemon with an incomprehensible list of parameters. All these things can be done directly in the service file in a few lines, instead of hundred of lines of bash.
 
-What we want to achieve is to run the binary, that contains the programm, directly with ExecStart=. The Type we want to use is Type=exec (with systemd >= 240) or Type=simple (with systemd < 240). The difference is described [here](https://www.freedesktop.org/software/systemd/man/systemd.service.html#Type=).
+What we want to achieve is to run the binary, that contains the programm, directly with ExecStart=. The Type we want to use is Type=exec (with systemd >= 240) or Type=simple (with systemd < 240). The difference is described [here](https://www.freedesktop.org/software/systemd/man/systemd.service.html#Type=), in short Type=exec has one more check that the service is started correctly than Type=simple.
 
 Another benefit of running the binary directly is that we can see stdout and stderr inside journald or when we run systemd status. Some services output logs or status messages to stdout which just get lost when using Type=forking.
 
@@ -94,7 +94,7 @@ These options disable exotic or old and unnecessary features.
 
 Restricts the set of socket address families that the service can create/use. The linux kernel knows a lot of [sockets](https://man7.org/linux/man-pages/man2/socket.2.html) that most service don't need and I never heard of. AF_UNIX allows the use for local communications like syslog, AF_INET AF_INET6 allows "normal" network access over IPv4/IPv6. The only other family I ever needed to add was AF_NETLINK for sending mails with sendmail for some services.
 
-#### NoNewNoNewPrivileges=true
+#### NoNewPrivileges=true
 
 This options prevents the service from ever getting more privileges than it had when it started. This is redundant since many of the other options also enable this option. But I like to add it explicity to be reminded that it exists.
 
