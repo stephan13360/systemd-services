@@ -30,7 +30,7 @@ _init() {
     EMAILMESSAGE="/tmp/emailmessage.txt"
 
     REPOSITORY="{{ backup_repo }}"
-    BACKUPPFADE="{{ backup_paths }}"
+    BACKUPPATHS="{{ backup_paths }}"
 }
 
 _main() {
@@ -44,7 +44,7 @@ _main() {
 _create() {
     _info "Running borg create"
 
-    borg create -v --stats --compression lz4 "$REPOSITORY::$THISHOST-$(date +%Y-%m-%d-%R)" $BACKUPPFADE 1>>"$EMAILMESSAGE" 2>>"$EMAILMESSAGE"; OUT=$?
+    borg create -v --stats --compression lz4 "$REPOSITORY::$THISHOST-$(date +%Y-%m-%d-%R)" $BACKUPPATHS 1>>"$EMAILMESSAGE" 2>>"$EMAILMESSAGE"; OUT=$?
 
     if test $OUT -eq 0; then
         _info "borg create successful"
