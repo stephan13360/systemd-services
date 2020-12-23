@@ -1,6 +1,6 @@
 # nginx systemd service
 
-The default nginx service is very basic. I'm surprised that a company this big has no ressources to create a solid service file with good default sandboxing. Especially since nginx is a widely deployed webserver and also reachable from the internet.
+The default NGINX service is very basic. I'm surprised that a company this big has no resources to create a solid service file with good default sandboxing. Especially since NGINX is a widely deployed webserver and also reachable from the internet.
 
 The service runs as root and uses `Type=forking`, but it also needs to for what it wants to do. The default nginx config starts the master process as root and then starts child processes as the user nginx which handle the actually webserver part. The job of the master process is to listen on port 80 and 443 (or other ports below 1024) which non root users can't normally do. It also often needs to read SSL/TLS private keys which are often no readable by non root users. The second part I simply fix by putting my keys in a directory that can be read by the group acme (other names are available) and add this group the the nginx service with `SupplementaryGroups=acme`.
 
