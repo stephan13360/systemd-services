@@ -19,4 +19,4 @@ The ExecStart= command is the same as the default service. The ExecStop= command
 
 We also add a `Restart=on-failure` which most services should use, to recover of the service should ever crash. Which would be especially bad for a service that provides a public website.
 
-And lastly we add all the sandboxing features this service should have had from the start. We also add two directories to ReadWritePaths= to allow nginx to write logs and also use the proxy_cache and fastcgi_cache directives.
+And lastly we add all the sandboxing features this service should have had from the start. We also add two directories to ReadWritePaths= to allow nginx to write logs and also use the proxy_cache and fastcgi_cache directives. If you overwrite the default service before starting NGINX for the first time the directories /var/log/nginx/ and /var/cache/nginx/ will not exists, since only root could create them. So make sure to create these directories and set their owner to nginx.
