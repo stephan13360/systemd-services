@@ -9,6 +9,8 @@ User=nginx
 Group=nginx
 SupplementaryGroups=acme
 RuntimeDirectory=nginx
+LogsDirectory=nginx
+CacheDirectory=nginx
 
 ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf
 ExecReload=/bin/kill -HUP $MAINPID
@@ -24,7 +26,6 @@ PrivateDevices=true
 ProtectControlGroups=true
 ProtectKernelModules=true
 ProtectKernelTunables=true
-ReadWritePaths=/var/log/nginx/ /var/cache/nginx/
 
 # network
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
