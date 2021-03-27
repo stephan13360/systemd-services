@@ -12,7 +12,7 @@ Please do contribute! Issues and pull requests are welcome.
 
 ## Goals
 
-The goal with all services is to use modern systemd settings and as much sandboxing as possible. I say modern as in, using a better way if there is one, for something that has been done the same way for 20 years. I'm not saying to replace everything with something new, just because it is new and may not even offer anything over the established way. The following explanations may include exaggerations about how bad it was befor, these are a combination of facts and tears.
+The goal with all services is to use modern systemd settings and as much sandboxing as possible. I say modern as in, using a better way if there is one, for something that has been done the same way for 20 years. I'm not saying to replace everything with something new, just because it is new and may not even offer anything over the established way. The following explanations may include exaggerations about how bad it was before, these are a combination of facts and tears.
 
 Some of the sandboxing options remove abilities from services that unprivileged users don't have access to anyway. These are just an additional layer of security in case they obtain these abilities in some other way.
 
