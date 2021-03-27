@@ -12,8 +12,12 @@ ExecReload=/usr/local/sbin/firewall.sh reload
 ExecStop=/usr/local/sbin/firewall.sh off
 
 # filesystem access
-ProtectSystem=strict
-ProtectHome=true
+TemporaryFileSystem=/:ro
+BindReadOnlyPaths=/lib/ /lib64/ /usr/lib/ /usr/lib64/ /etc/ld.so.cache /etc/ld.so.conf /etc/ld.so.conf.d/ /etc/bindresvport.blacklist /usr/share/zoneinfo/ /usr/share/locale/ /etc/localtime /usr/share/common-licenses/ /etc/ssl/certs/
+BindReadOnlyPaths=/dev/log /run/systemd/journal/socket /run/systemd/journal/stdout /run/systemd/notify
+BindReadOnlyPaths=/bin/bash /usr/local/sbin/firewall.sh /usr/local/etc/firewall/ /usr/bin/run-parts /usr/sbin/iptables /usr/sbin/ip6tables /usr/sbin/ipset /sbin/modprobe
+BindPaths=/run/
+
 PrivateTmp=true
 PrivateDevices=true
 ProtectControlGroups=true

@@ -20,7 +20,7 @@ Sadly I was not able to get my firewall / iptables service running without root.
 
 But I was able to remove most of the [capabilities](https://man7.org/linux/man-pages/man7/capabilities.7.html) root normaly has. With `CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_RAW CAP_SYS_MODULE` the services only has access to three out of over 40+ capabilities even though it is running as root.
 
-Combining ProtectSystem=strict and ReadWritePaths=/run/ prevents the service from modifying most parts of the filesystem whils still allowing creating / writing the /run/xtables.lock file. Futher restricting ReadWritePaths=-/run/xtables.lock does not work, because the file does not exist at boot time. The - (minus) would ignore the missing file at boot but would than also not allow writing to that path which prevents creating the file and fails the iptables script.
+We than use `TemporaryFileSystem=/:ro` to hide the entire filesystem tree from the service and also make it read only (This needs systemd 238 or higher, use `ProtectSystem=strict` and `ProtectHome=true` when using 237 or earlier). With `BindReadOnlyPaths=` we than add all directories and files to this now empty filesystem tree that the firewall script needs to have access to. The first two `BindReadOnlyPaths=` are defaults I add to every service. These are libraries and other files that most services need to have access to. The third line adds the firewall scripts themself, the bash binary used to run the script, and other binarys used by the script or iptables. The forth line adds the /run/ directory so iptables can write to /run/xtables.lock.
 
 ## modularity
 
