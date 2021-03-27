@@ -34,6 +34,7 @@ ProtectKernelTunables=true
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 
 # misc
+SystemCallArchitectures=native
 NoNewPrivileges=true
 RestrictRealtime=true
 ProtectKernelLogs=true
