@@ -44,7 +44,7 @@ Requires systemd version 238 or higher. This can be used to hide the entire file
 
 #### ProtectSystem=strict
 
-This makes the whole filesystems read-only to the process (/dev, /proc and /sys are exempt), even if it would run as root. I combine this with ReadWritePaths= to make some paths of the filesystem writeable again, if the service needs them. All paths listed inside ReadWritePaths= must exists or the service will refuse to start with a very cryptic error message.
+This makes the whole filesystems read-only to the process (/dev, /proc and /sys are exempt), even if it would run as root. I combine this with ReadWritePaths= to make some paths of the filesystem writeable again, if the service needs them. All paths listed inside ReadWritePaths= must exists or the service will refuse to start with a very cryptic error message. Do not use this in combination with TemporaryFileSystem=/:ro, it will mount the entire filesystem tree over the emtpy one, giving the service access to everything again.
 
 #### ProtectControlGroups=true
 
@@ -68,15 +68,15 @@ Some parts of the system are not needed by most services to be accessible at all
 
 #### ProtectHome=true
 
-Makes the directories /home, /root, and /run/user inaccessible for the service. When I create user accounts for the services I create the home directory outside of /home, normally inside /srv to not take away the users own home directory.
+Makes the directories /home, /root, and /run/user inaccessible for the service. When I create user accounts for the services I create the home directory outside of /home, normally inside /srv to not take away the users own home directory. Not needed with TemporaryFileSystem=/:ro.
 
 #### PrivateTmp=true
 
-Creates a private /tmp directory just for the service. It can write files to it, but can't access any files in the "real" /tmp directory. Additionally the private /tmp will be deleted when the service stops.
+Creates a private /tmp directory just for the service. It can write files to it, but can't access any files in the "real" /tmp directory. Additionally the private /tmp will be deleted when the service stops. Will also mount the /tmp directory inside TemporaryFileSystem=/:ro.
 
 #### PrivateDevices=true
 
-Creates a private /dev directory just for the service. Only /dev/null, /dev/zero and /dev/random are added to this private /dev. This blocks raw access to physical devices like the harddrive and system memory.
+Creates a private /dev directory just for the service. Only /dev/null, /dev/zero and /dev/random are added to this private /dev. This blocks raw access to physical devices like the harddrive and system memory. Will also mount the devices inside TemporaryFileSystem=/:ro.
 
 #### ProtectKernelLogs=true
 
