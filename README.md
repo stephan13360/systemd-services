@@ -12,7 +12,7 @@ Please do contribute! Issues and pull requests are welcome.
 
 ## Goals
 
-The goal with all services is to use modern systemd settings and as much sandboxing as possible. I say modern as in, using a better way if there is one, for something that has been done the same way for 20 years. I'm not saying to replace everything with something new, just because it is new and may not even offer anything over the established way. The following explanations may include exaggerations about how bad it was befor, these are a combination of facts and tears.
+The goal with all services is to use modern systemd settings and as much sandboxing as possible. I say modern as in, using a better way if there is one, for something that has been done the same way for 20 years. I'm not saying to replace everything with something new, just because it is new and may not even offer anything over the established way. The following explanations may include exaggerations about how bad it was before, these are a combination of facts and tears.
 
 Some of the sandboxing options remove abilities from services that unprivileged users don't have access to anyway. These are just an additional layer of security in case they obtain these abilities in some other way.
 
@@ -40,7 +40,7 @@ There are many options which remove some abilities for a service to change thing
 
 #### TemporaryFileSystem=/:ro
 
-Requires systemd version 238 or higher. This can be used to hide the entire filesystem tree from the service. You can than use `BindReadOnlyPaths=` and `BindPaths=` to add files and folders that the applcations needs access to. This seems to be a secure and modern approach to what many people abused chroot for. When using systemd 237 or lower you can archive something similar with `RootDirectory=` but this uses chroot and chroot was never meant to be a security boundary.
+Requires systemd version 238 or higher. This can be used to hide the entire filesystem tree from the service. You can than use `BindReadOnlyPaths=` and `BindPaths=` to add files and directories that the application needs access to. This seems to be a secure and modern approach to what many people abused chroot for. When using systemd 237 or lower you can archive something similar with `RootDirectory=` but this uses chroot and chroot was never meant to be a security boundary.
 
 #### ProtectSystem=strict
 
