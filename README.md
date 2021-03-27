@@ -38,6 +38,10 @@ For example with AmbientCapabilities=CAP_DAC_READ_SEARCH we can give a service t
 
 There are many options which remove some abilities for a service to change things in the system.
 
+#### TemporaryFileSystem=/:ro
+
+Requires systemd version 238 or higher. This can be used to hide the entire filesystem tree from the service. You can than use `BindReadOnlyPaths=` and `BindPaths=` to add files and folders that the applcations needs access to. This seems to be a secure and modern approach to what many people abused chroot for. When using systemd 237 or lower you can archive something similar with `RootDirectory=` but this uses chroot and chroot was never meant to be a security boundary.
+
 #### ProtectSystem=strict
 
 This makes the whole filesystems read-only to the process (/dev, /proc and /sys are exempt), even if it would run as root. I combine this with ReadWritePaths= to make some paths of the filesystem writeable again, if the service needs them. All paths listed inside ReadWritePaths= must exists or the service will refuse to start with a very cryptic error message.
@@ -122,7 +126,7 @@ Prevent the service to enable realtime scheduling. This can be used clog up CPU 
 
 #### LockPersonality=true
 
- If set, locks down the personality system call so that the kernel execution domain may not be changed from the default or the personality selected with Personality= directive. I copied the explanation directly from the systemd documentaion, because this is the option I understand the least. It can improve security and sometimes breaks the service. I just turn it on and see if everything is still working.
+If set, locks down the personality system call so that the kernel execution domain may not be changed from the default or the personality selected with Personality= directive. I copied the explanation directly from the systemd documentaion, because this is the option I understand the least. It can improve security and sometimes breaks the service. I just turn it on and see if everything is still working.
 
 ### miscellaneous
 
