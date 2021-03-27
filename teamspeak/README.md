@@ -22,6 +22,6 @@ So reading the scripts tells us we just need to run the binary ts3server directl
 
 When running the Teamspeak server you need to accept a license to continue. You can do this non interactively in different ways, I use the environment variable and add `Environment=TS3SERVER_LICENSE=accept` to the service.
 
-I then slap every sandbox feature on it, allow it to write to its own sqlite database within `ReadWritePaths=/srv/teamspeak/teamspeak3-server_linux_amd64/` and it works.
+We than use `TemporaryFileSystem=/:ro` to hide the entire filesystem tree from teamspeak and also make it read only (This needs systemd 238 or higher, use `ProtectSystem=strict` and `ProtectHome=true` when using 237 or earlier). With `BindReadOnlyPaths=` we than add all directories and files to this now empty filesystem tree that teamspeak needs to have access to. The first two `BindReadOnlyPaths=` are defaults I add to every service. These are libraries and other files that most services need to have access to. Other important directories are automatically mounted by other systemd options like PrivateTmp, PrivateDevices, etc. The third line is the teamspeak directory itself and `BindPaths=` allows the service to also write to this directory. We also add most other sandboxing options to the service.
 
 By getting rid of Type=forking and the bash start script we don't just get more reliable tracking we can also now see the log output of the binary which it writes to stdout inside journald or when we run systemd status.

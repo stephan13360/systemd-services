@@ -12,8 +12,11 @@ ExecStart=/srv/teamspeak/teamspeak3-server_linux_amd64/ts3server
 Restart=on-failure
 
 # filesystem access
-ProtectSystem=strict
-ProtectHome=true
+TemporaryFileSystem=/:ro
+BindReadOnlyPaths=/lib/ /lib64/ /usr/lib/ /usr/lib64/ /etc/ld.so.cache /etc/ld.so.conf /etc/ld.so.conf.d/ /etc/bindresvport.blacklist /usr/share/zoneinfo/ /usr/share/locale/ /etc/localtime /usr/share/common-licenses/ /etc/ssl/certs/
+BindReadOnlyPaths=/dev/log /run/systemd/journal/socket /run/systemd/journal/stdout /run/systemd/notify
+BindPaths=/srv/teamspeak/teamspeak3-server_linux_amd64/
+
 PrivateTmp=true
 PrivateDevices=true
 ProtectControlGroups=true
