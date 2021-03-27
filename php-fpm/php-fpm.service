@@ -1,0 +1,44 @@
+[Unit]
+Description=php{{ php_version }}-fpm
+After=network.target
+
+[Service]
+Type=notify
+RuntimeDirectory=php
+StateDirectory=php
+ConfigurationDirectory=php
+
+ExecStart=/usr/sbin/php-fpm{{ php_version }} --nodaemonize --fpm-config /etc/php/{{ php_version }}/fpm/php-fpm.conf
+ExecReload=/bin/kill -USR2 $MAINPID
+
+Restart=on-failure
+RestartSec=10s
+
+# filesystem access
+TemporaryFileSystem=/:ro
+BindReadOnlyPaths=/lib/ /lib64/ /usr/lib/ /usr/lib64/ /etc/ld.so.cache /etc/ld.so.conf /etc/ld.so.conf.d/ /etc/bindresvport.blacklist /usr/share/zoneinfo/ /usr/share/locale/ /etc/localtime /usr/share/common-licenses/ /etc/ssl/certs/
+BindReadOnlyPaths=/dev/log /run/systemd/journal/socket /run/systemd/journal/stdout /run/systemd/notify
+BindReadOnlyPaths=/usr/sbin/php-fpm{{ php_version }} /bin/kill /usr/lib/php/ /etc/passwd /etc/group
+BindReadOnlyPaths=/other/readonly/paths/
+BindPaths=/paths/with/write/access/
+
+#ProtectSystem=strict will overwrite TemporaryFileSystem=/:ro
+#ProtectHome=true not needed with TemporaryFileSystem=/:ro
+PrivateTmp=true
+PrivateDevices=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+
+# network
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+# misc
+NoNewPrivileges=true
+RestrictRealtime=true
+ProtectKernelLogs=true
+LockPersonality=true
+ProtectHostname=true
+RemoveIPC=true
+RestrictSUIDSGID=true
+ProtectClock=true
