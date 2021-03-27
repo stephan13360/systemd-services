@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if test -z "$1"; then
 
     echo "Please specify 'on', 'off', or 'reload'"
