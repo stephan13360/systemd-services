@@ -21,4 +21,6 @@ The ExecStart= command is the same as the default service. The ExecStop= command
 
 We also add a `Restart=on-failure` which most services should use, to recover of the service should ever crash. Which would be especially bad for a service that provides a public website.
 
-And lastly we add all the sandboxing features this service should have had from the start.
+We than use `TemporaryFileSystem=/:ro` to hide the entire filesystem tree from the service and also make it read only (This needs systemd 238 or higher, use `ProtectSystem=strict` and `ProtectHome=true` when using 237 or earlier). With `BindReadOnlyPaths=` we than add all directories and files to this now empty filesystem tree that nginx needs to have access to. The first two `BindReadOnlyPaths=` are defaults I add to every service. These are libraries and other files that most services need to have access to. Other important directories are automatically mounted by other systemd options like LogsDirectory, PrivateTmp, PrivateDevices, etc. The third line is the nginx binary itself and the kill binary used to reload the service. The forth line are the directories where my websites and ssl certificates are located.
+
+And lastly we add all the other sandboxing features this service should have had from the start.

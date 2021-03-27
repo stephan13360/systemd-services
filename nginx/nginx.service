@@ -11,6 +11,7 @@ SupplementaryGroups=acme
 RuntimeDirectory=nginx
 LogsDirectory=nginx
 CacheDirectory=nginx
+ConfigurationDirectory=nginx
 
 ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf
 ExecReload=/bin/kill -HUP $MAINPID
@@ -19,8 +20,14 @@ Restart=on-failure
 RestartSec=10s
 
 # filesystem access
-ProtectSystem=strict
-ProtectHome=true
+TemporaryFileSystem=/:ro
+BindReadOnlyPaths=/lib/ /lib64/ /usr/lib/ /usr/lib64/ /etc/ld.so.cache /etc/ld.so.conf /etc/ld.so.conf.d/ /etc/bindresvport.blacklist /usr/share/zoneinfo/ /usr/share/locale/ /etc/localtime /usr/share/common-licenses/ /etc/ssl/certs/
+BindReadOnlyPaths=/dev/log /run/systemd/journal/socket /run/systemd/journal/stdout /run/systemd/notify
+BindReadOnlyPaths=/usr/sbin/nginx /bin/kill
+BindReadOnlyPaths=/path/to/webdir/ /path/to/certificates/
+
+#ProtectSystem=strict will overwrite TemporaryFileSystem=/:ro
+#ProtectHome=true not needed with TemporaryFileSystem=/:ro
 PrivateTmp=true
 PrivateDevices=true
 ProtectControlGroups=true
