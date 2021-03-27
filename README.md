@@ -40,7 +40,7 @@ There are many options which remove some abilities for a service to change thing
 
 #### TemporaryFileSystem=/:ro
 
-Requires systemd version 238 or higher. This can be used to hide the entire filesystem tree from the service. You can than use `BindReadOnlyPaths=` and `BindPaths=` to add files and folders that the applcations needs access to. This seems to be a secure and modern approach to what many people abused chroot for. When using systemd 237 or lower you can archive something similar with `RootDirectory=` but this uses chroot and chroot was never meant to be a security boundary.
+Requires systemd version 238 or higher. This can be used to hide the entire filesystem tree from the service. You can than use `BindReadOnlyPaths=` and `BindPaths=` to add files and directories that the application needs access to. This seems to be a secure and modern approach to what many people abused chroot for. When using systemd 237 or lower you can archive something similar with `RootDirectory=` but this uses chroot and chroot was never meant to be a security boundary.
 
 #### ProtectSystem=strict
 
