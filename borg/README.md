@@ -4,7 +4,7 @@ My borg backup service has gone through multiple version until I reached a state
 
 ## basics
 
-My backup works as follows: The borg backup script backups all specified directories and also the /backup directory. The /backup directory can be used by other software to write files they want to be backed up. The /backup directory is owned by the borg user and group. After the backup script finishes successfully the borg service deletes the content of /backup with `ExecStartPost=!/bin/find /backup/ ! -path /backup/ -delete`. The script also touches the file /backup.last which can be used by monitoring software to check when the last successfull backup was created.
+My backup works as follows: The borg backup script backups all specified directories and also the /backup directory. The /backup directory can be used by other software to write files they want to be backed up. The /backup directory is owned by the borg user and group. After the backup script finishes successfully the borg service deletes the content of /backup with `ExecStartPost=!/bin/find /backup/ ! -path /backup/ -delete`. The script also touches the file /backup.last which can be used by monitoring software to check when the last successful backup was created.
 
 ## not running as root
 
@@ -16,7 +16,7 @@ To send mails the services needs to be able to create files in /var/spool/postfi
 
 ## modularity
 
-I use ansible to configure my servers and I don't want to edit my borg backup role or the backup script each time I add a new role / software that I want to backup. When my service was still running as root I could do this by using run-parts in my main backup script and then each role / softwate could create a backup file in some directory and it would be executed. Now that the script no longer has root privileges the scripts started by run-parts would often be missing privileges they need. For example to backup postgresql databases you need to run pg_dump as the postgres user.
+I use ansible to configure my servers and I don't want to edit my borg backup role or the backup script each time I add a new role / software that I want to backup. When my service was still running as root I could do this by using run-parts in my main backup script and then each role / software could create a backup file in some directory and it would be executed. Now that the script no longer has root privileges the scripts started by run-parts would often be missing privileges they need. For example to backup postgresql databases you need to run pg_dump as the postgres user.
 
 My solution is to run the additional backup scripts via their own service files which include all the privileges needed. These service files are injected into the main backup service through a systemd conf files located in /etc/systemd/system/backup.service.d/. The file contains one line in the `[Service]` section: `ExecStartPre=!/bin/systemctl start backup-postgresql.service`. Normally this command would be executed as the user borg, because of the User=borg and fail, because only root can use systemctl start. The ! at the start of the command can be used to execute this single command as root instead without running the wholes service as root. This injection via /etc/systemd/system/backup.service.d/ can be done by any number of services. All ExecStartPre= command have to exit successfully ot the backup service as a whole fails. I could prefix the ExecStartPre= comamnds with a - (minus) but I prefer the whole service to fail because I monitor successfully backups via the /backup.last file.
 
@@ -24,6 +24,6 @@ The additional systemd services need to be able to write to /backup which can be
 
 ## sandboxing
 
-Not all sandboxing options can be used. ProtectHome=true prevents the backup of the user home directories, PrivateUsers=true prevents borg from preservig the correct file permissions, LockPersonality=true prevents sending mails.
+Not all sandboxing options can be used. ProtectHome=true prevents the backup of the user home directories, PrivateUsers=true prevents borg from preserving the correct file permissions, LockPersonality=true prevents sending mails.
 
 The directories /home/borg/.cache/borg and /home/borg/.config/borg need to be added to ReadWritePaths= to allow borg to work.
