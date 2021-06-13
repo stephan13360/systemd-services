@@ -33,4 +33,7 @@ RestrictSUIDSGID=true
 ProtectClock=true
 
 # capabilities
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
 AmbientCapabilities=CAP_DAC_READ_SEARCH
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
