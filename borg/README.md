@@ -4,7 +4,7 @@ My borg backup service has gone through multiple version until I reached a state
 
 ## basics
 
-My backup works as follows: The borg backup script backups all specified directories and also the /backup directory. The /backup directory can be used by other software to write files they want to be backed up. The /backup directory is owned by the borg user and group. After the backup script finishes successfully the borg service deletes the content of /backup with `ExecStartPost=!/bin/find /backup/ ! -path /backup/ -delete`. The script also touches the file /backup.last which can be used by monitoring software to check when the last successful backup was created.
+My backup works as follows: The borg backup script backups all specified directories and also the /backup directory. The /backup directory can be used by other software to write files they want to be backed up. The /backup directory is owned by the borg user and group. After the backup script finishes the systemd service touches the file /backup.last which can be used by monitoring software to check when the last successful backup was created.
 
 ## not running as root
 
