@@ -12,7 +12,7 @@ This was the easier of my two goals. Borg needs root to access and read all file
 
 As mentioned in the top level readme, you can give a service the [capability](https://man7.org/linux/man-pages/man7/capabilities.7.html) to open all directories and read all files in the system. The needed capability is CAP_DAC_READ_SEARCH and can be added to the service with `AmbientCapabilities=CAP_DAC_READ_SEARCH`.
 
-To send mails the services needs to be able to create files in /var/spool/postfix/maildrop which can be achieved by adding the service to the postdrop group via `SupplementaryGroups=postdrop`. Because I also use `ProtectSystem=strict` I also need to add the path to ReadWritePaths. The service also needs to access netlink sockets which can be achieved by adding it to `RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK`.
+To send mails the service needs to be able to create files in /var/spool/postfix/maildrop which can be achieved by adding the service to the postdrop group via `SupplementaryGroups=postdrop`. Because I also use `ProtectSystem=strict` I also need to add the path to ReadWritePaths. The service also needs to access netlink sockets which can be achieved by adding it to `RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK`.
 
 ## modularity
 
