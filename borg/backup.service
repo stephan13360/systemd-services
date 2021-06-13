@@ -7,7 +7,7 @@ User=borg
 Group=borg
 SupplementaryGroups=postdrop
 ExecStart=/usr/local/sbin/backup.sh
-ExecStartPost=!/bin/find /backup/ ! -path /backup/ -delete
+ExecStartPost=/usr/bin/touch /backup.last
 
 # filesystem access
 ProtectSystem=strict
@@ -16,7 +16,7 @@ PrivateDevices=true
 ProtectControlGroups=true
 ProtectKernelModules=true
 ProtectKernelTunables=true
-ReadWritePaths=/backup /home/borg/.cache/borg /home/borg/.config/borg /backup.last /var/spool/postfix/maildrop
+ReadWritePaths=/backup/ /home/borg/.cache/borg/ /home/borg/.config/borg/ /var/spool/postfix/maildrop/ /backup.last
 
 # network
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK

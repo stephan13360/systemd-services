@@ -6,6 +6,7 @@ set -o pipefail
 
 _mail() {
     mail -s "$SUBJECT" "$EMAIL" < "$EMAILMESSAGE"
+    truncate -s 0 "$EMAILMESSAGE"
 }
 
 _infomail() {
@@ -14,7 +15,8 @@ _infomail() {
 }
 
 _info(){
-    echo "$@" | tee -a "$EMAILMESSAGE"
+    echo "$@"
+    printf "$(date "+%Y-%m-%d %R:%S") %s\n" "$@" >> "$EMAILMESSAGE"
 }
 
 _err() {
@@ -27,10 +29,10 @@ _err() {
 _init() {
     THISHOST={{ inventory_hostname }}
     EMAIL="{{ backup_mail }}"
-    EMAILMESSAGE="/tmp/emailmessage.txt"
+    EMAILMESSAGE="/backup/emailmessage.txt"
 
     REPOSITORY="{{ backup_repo }}"
-    BACKUPPATHS="{{ backup_paths }}"
+    BACKUPPFADE="{{ backup_paths }}"
 }
 
 _main() {
@@ -44,11 +46,10 @@ _main() {
 _create() {
     _info "Running borg create"
 
-    borg create -v --stats --compression lz4 "$REPOSITORY::$THISHOST-$(date +%Y-%m-%d-%R)" $BACKUPPATHS 1>>"$EMAILMESSAGE" 2>>"$EMAILMESSAGE"; OUT=$?
+    borg create -v --stats --compression lz4 --noatime "$REPOSITORY::$THISHOST-$(date +%Y-%m-%d-%R)" $BACKUPPFADE 1>>"$EMAILMESSAGE" 2>>"$EMAILMESSAGE"; OUT=$?
 
     if test $OUT -eq 0; then
         _info "borg create successful"
-        date > /backup.last
     else
         _err "borg create had problems, borg statuscode = $OUT"
     fi

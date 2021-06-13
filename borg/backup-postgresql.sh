@@ -6,6 +6,7 @@ set -o pipefail
 
 _info(){
     echo "$@"
+    printf "$(date "+%Y-%m-%d %R:%S") %s\n" "$@" >> /backup/emailmessage.txt
 }
 
 _err() {
