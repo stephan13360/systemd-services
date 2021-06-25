@@ -2,7 +2,7 @@
 
 Like the nginx service, the php-fpm default service that comes with Ubuntu is very basic, even though the [upstream service](https://github.com/php/php-src/blob/master/sapi/fpm/php-fpm.service.in) includes some sandboxing options.
 
-Running php-fpm without root is possible but also restricts us to a sinlge user when using multiple pool files. Since I use a couple of pool files, each with its own `listen.owner` and `listen.group`, I would have to create a seperate php.fpm service and seperate php.ini files for each pool and start php-fpm multiple times. Here I decided to go with convenience over the security, but it's up to you.
+Running php-fpm without root is possible but also restricts us to a single user when using multiple pool files. Since I use a couple of pool files, each with its own `listen.owner` and `listen.group`, I would have to create a seperate php.fpm service and seperate php.ini files for each pool and start php-fpm multiple times. Here I decided to go with convenience over the security, but it's up to you.
 
 That doesn't meen we can't restrict the root user and take away most of his [capabilities](https://man7.org/linux/man-pages/man7/capabilities.7.html). Using `CapabilityBoundingSet=CAP_SETGID CAP_SETUID CAP_CHOWN` we take away all but three capabilities root would normally have. These capabilities are used to run the different pools as different users, and also to set the owner and group of the listen unix socket.
 
