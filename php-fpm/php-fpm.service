@@ -43,3 +43,6 @@ ProtectHostname=true
 RemoveIPC=true
 RestrictSUIDSGID=true
 ProtectClock=true
+
+[Install]
+WantedBy=multi-user.target
