@@ -14,7 +14,7 @@ CacheDirectory=nginx
 ConfigurationDirectory=nginx
 
 ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf
-ExecReload=/bin/kill -HUP $MAINPID
+ExecReload=/usr/sbin/nginx -s reload
 
 Restart=on-failure
 RestartSec=10s
@@ -23,7 +23,7 @@ RestartSec=10s
 TemporaryFileSystem=/:ro
 BindReadOnlyPaths=/lib/ /lib64/ /usr/lib/ /usr/lib64/ /etc/ld.so.cache /etc/ld.so.conf /etc/ld.so.conf.d/ /etc/bindresvport.blacklist /usr/share/zoneinfo/ /usr/share/locale/ /etc/localtime /usr/share/common-licenses/ /etc/ssl/certs/
 BindReadOnlyPaths=/dev/log /run/systemd/journal/socket /run/systemd/journal/stdout /run/systemd/notify
-BindReadOnlyPaths=/usr/sbin/nginx /bin/kill
+BindReadOnlyPaths=/usr/sbin/nginx
 BindReadOnlyPaths=/run/ /path/to/webdir/ /path/to/certificates/
 
 #ProtectSystem=strict will overwrite TemporaryFileSystem=/:ro
