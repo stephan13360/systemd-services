@@ -26,4 +26,4 @@ NoNewPrivileges=true
 RestrictRealtime=true
 MemoryDenyWriteExecute=true
 LockPersonality=true
-RemoveIPC=true
+RemoveIPC=false
